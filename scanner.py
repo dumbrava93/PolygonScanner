@@ -1,7 +1,5 @@
-import os
 import logging
 import sys
-import json
 from polygon import RESTClient
 from polygon.exceptions import AuthError, BadResponse
 
@@ -13,13 +11,8 @@ logging.basicConfig(
 )
 
 def main():
-    # Obținerea cheii API din variabilele de mediu sau hardcoded
-    api_key = os.getenv('POLYGON_API_KEY') or os.getenv('Polygon_Key') or os.getenv('PolyGon_Key') or os.getenv('PoLygon_Key') or 'VUHuK_qi2S_wYugH9NjeUrQRysQJ3OCR'
-    if not api_key:
-        error_msg = "Eroare: Cheia API nu a putut fi găsită."
-        print(error_msg)
-        logging.error(f"{error_msg} (Simboluri deja adăugate: 0)")
-        return
+    # Cheia API hardcodată conform solicitării utilizatorului
+    api_key = 'VUHuK_qi2S_wYugH9NjeUrQRysQJ3OCR'
 
     # Inițializare client Polygon
     client = RESTClient(api_key)
@@ -51,7 +44,7 @@ def main():
         print(f"Număr total de acțiuni identificate: {symbols_count}")
 
     except AuthError:
-        msg = f"Eroare 403: Acces interzis. Verifică dacă cheia API este activă sau dacă planul Starter permite acest endpoint. (Simboluri deja adăugate: {symbols_count})"
+        msg = f"Eroare 403: Acces interzis. Verifică dacă cheia API este activă. (Simboluri deja adăugate: {symbols_count})"
         logging.error(msg)
         print(msg)
         sys.exit(1)
@@ -63,7 +56,7 @@ def main():
         if is_rate_limit:
             msg = f"Eroare 429: Limitare de viteză (Rate Limit). Scriptul va aștepta înainte de a reîncerca. (Simboluri deja adăugate: {symbols_count})"
         elif is_forbidden:
-            msg = f"Eroare 403: Acces interzis. Verifică dacă cheia API este activă sau dacă planul Starter permite acest endpoint. (Simboluri deja adăugate: {symbols_count})"
+            msg = f"Eroare 403: Acces interzis. Verifică dacă cheia API este activă. (Simboluri deja adăugate: {symbols_count})"
         else:
             msg = f"Eroare de la API (Bad Response): {error_str}. (Simboluri deja adăugate: {symbols_count})"
 
