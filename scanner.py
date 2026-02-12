@@ -13,10 +13,10 @@ logging.basicConfig(
 )
 
 def main():
-    # Obținerea cheii API din variabilele de mediu
-    api_key = os.getenv('POLYGON_API_KEY') or os.getenv('Polygon_Key') or os.getenv('PolyGon_Key') or os.getenv('PoLygon_Key')
+    # Obținerea cheii API din variabilele de mediu sau hardcoded
+    api_key = os.getenv('POLYGON_API_KEY') or os.getenv('Polygon_Key') or os.getenv('PolyGon_Key') or os.getenv('PoLygon_Key') or 'VUHuK_qi2S_wYugH9NjeUrQRysQJ3OCR'
     if not api_key:
-        error_msg = "Eroare: Variabila de mediu POLYGON_API_KEY, Polygon_Key sau PoLygon_Key nu este setată."
+        error_msg = "Eroare: Cheia API nu a putut fi găsită."
         print(error_msg)
         logging.error(f"{error_msg} (Simboluri deja adăugate: 0)")
         return
