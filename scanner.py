@@ -20,7 +20,7 @@ def main():
     symbols_count = 0
     max_retries = 3
 
-    print("🚀 Inițiez scanarea optimizată (filtrare la sursă)...")
+    print("🚀 Inițiez scanareaaaa optimizată (filtrare la sursă)...")
 
     try:
         # Optimizare 1: Filtrare direct la sursă pentru viteză maximă și consum redus de date
