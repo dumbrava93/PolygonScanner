@@ -20,7 +20,7 @@ def main():
     symbols_count = 0
     max_retries = 3
 
-    print("🚀 Inițiez scanareaaaa optimizată (filtrare la sursă)...")
+    print("🚀 Inițiez scanarea optimizată (Simbol + Nume)...")
 
     try:
         # Optimizare 1: Filtrare direct la sursă pentru viteză maximă și consum redus de date
@@ -31,13 +31,17 @@ def main():
             limit=1000
         )
 
-        with open('universe.txt', 'w') as f:
+        with open('universe.txt', 'w', encoding='utf-8') as f:
+            # Adăugăm un header pentru claritate (format CSV)
+            f.write("Ticker, Name\n")
+
             # Folosim un iterator robust care poate gestiona limitările de viteză
             while True:
                 try:
                     for ticker in tickers_iterator:
                         symbols_count += 1
-                        f.write(f"{ticker.ticker}\n")
+                        # Salvăm Simbolul și Numele complet (cu ghilimele pentru a evita erori la virgule)
+                        f.write(f'{ticker.ticker}, "{ticker.name}"\n')
 
                         # Optimizare 2: Buffering la scriere (flush doar la 500 rânduri)
                         if symbols_count % 500 == 0:
